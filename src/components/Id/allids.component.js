@@ -11,8 +11,18 @@ import { Link } from 'react-router-dom';
 export const Allids = () =>{
   const classes=useStyles()
   const [data, setData] = useState({ data: [] });
+  const [filteredData,setFilteredData] = useState (data);
   const [isLoading,setIsLoading] = useState (false);
   const [isError,setIsError] = useState(false);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    result = data.data.filter((data) => {
+      return data.name.search(value) != -1;
+      });
+      setFilteredData(result);
+      
+  };
  
   useEffect(() => {
     const fetchData = async () => {
@@ -23,12 +33,14 @@ export const Allids = () =>{
       const result = await axios('ids',);
  
       setData(result.data);
+      setFilteredData(result.data);
       } catch(error) {
         setIsError(true);
       }
       setIsLoading(false);
     };
- 
+    
+
     fetchData();
   }, []);
  
@@ -36,15 +48,19 @@ export const Allids = () =>{
     <div>
 
       {isError && <div>Something went wrong ...  </div>}
-      
+
       {isLoading ? (<div>Loading ... </div>) : (
     <main>
+        <div style={{ margin: '0 auto', marginTop: '10px' }}>
+        <label>Search:</label>
+        <input type="text" onChange={(event) =>handleSearch(event)} />
+        </div>
     <CssBaseline />
     
      
     <Container className={classes.cardGrid} maxWidth='md'>
       <Grid container spacing={4}>
-        {data.data.map((item) => (
+        {filteredData.data.map((item) => (
          <Grid item key={item.id} xs={12} sm={6} md={4}>
          <Card className={classes.card}>
       
