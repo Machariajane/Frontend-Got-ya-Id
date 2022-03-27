@@ -10,19 +10,25 @@ import { Link } from 'react-router-dom';
 
 export const Allids = () =>{
   const classes=useStyles()
-  const [data, setData] = useState({ data: [] });
-  const [filteredData,setFilteredData] = useState (data);
+  
+  const [data,setData] = useState ([]);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const [isLoading,setIsLoading] = useState (false);
   const [isError,setIsError] = useState(false);
-  const handleSearch = (event) => {
-    let value = event.target.value.toLowerCase();
-    let result = [];
-    result = data.data.filter((data) => {
-      return data.name.search(value) != -1;
-      });
-      setFilteredData(result);
-      
-  };
+  
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue)
+    if (searchInput !== '') {
+        const filteredData = data.filter((item) => {
+            return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
+    }
+    else{
+        setFilteredResults(data)
+    }
+}
  
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +38,8 @@ export const Allids = () =>{
       try{
       const result = await axios('ids',);
  
-      setData(result.data);
-      setFilteredData(result.data);
+      
+      setData(result.data.data);
       } catch(error) {
         setIsError(true);
       }
@@ -51,16 +57,19 @@ export const Allids = () =>{
 
       {isLoading ? (<div>Loading ... </div>) : (
     <main>
-        <div style={{ margin: '0 auto', marginTop: '10px' }}>
-        <label>Search:</label>
-        <input type="text" onChange={(event) =>handleSearch(event)} />
-        </div>
+        
     <CssBaseline />
     
-     
+    
     <Container className={classes.cardGrid} maxWidth='md'>
+
+    <div style={{ margin: '0 auto', marginTop: '10px' }}>
+        <input type="text"  placeholder='Search...' onChange={(e) => searchItems(e.target.value)}/>
+        </div>
+        <br></br>
       <Grid container spacing={4}>
-        {filteredData.data.map((item) => (
+      {searchInput.length > 1 ? (
+        filteredResults.map((item) => (
          <Grid item key={item.id} xs={12} sm={6} md={4}>
          <Card className={classes.card}>
       
@@ -79,7 +88,29 @@ export const Allids = () =>{
        
          </Card>
        </Grid>
-       ))}
+       ))):(
+        data.map((item) => (
+          <Grid item key={item.id} xs={12} sm={6} md={4}>
+          <Card className={classes.card}>
+       
+            <CardMedia className={classes.cardMedia} 
+            image="https://source.unsplash.com/random" 
+            title="Image title"/>
+            <CardContent className={classes.cardContent}>
+              <Typography gutterBottom variant='h5'>{item.name}</Typography>
+              <Typography >{item.campus}</Typography>
+            </CardContent>
+            <CardActions>
+            <Button variant="contained" color="success" >
+             <Link to={`/viewid/${item.id}`}>View</Link>
+            </Button>
+            </CardActions>
+        
+          </Card>
+        </Grid>
+        ))
+       )}
+        
       </Grid>
     </Container>
     </main>
