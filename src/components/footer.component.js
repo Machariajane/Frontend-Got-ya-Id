@@ -13,11 +13,14 @@ export const  Footer = () => {
 
 <footer className={classes.footer}>
     <Container maxWidth='sm'>
-        <Typography variant='h6' align='center' color="textSecondary" gutterBottom>
+        {/* <Typography variant='h6' align='center' color="textSecondary" gutterBottom>
            Got-ya-Id
-        </Typography>
+        </Typography> */}
         <Typography variant='subtitle1' align='center' color='textSecondary'> 
             {'Copyright © '} {new Date().getFullYear()}
+        </Typography>
+        <Typography variant='subtitle2' align='center' color='textSecondary'> 
+            Mugo Waithira
         </Typography>
     </Container>
 </footer>

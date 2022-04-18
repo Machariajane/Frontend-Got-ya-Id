@@ -73,10 +73,6 @@ if (user){menuItems = [
     pageURL: "/allids"
   },
   {
-    menuTitle: "Find-ID",
-    pageURL: "/findid"
-  },
-  {
     menuTitle: "Post-ID",
     pageURL: "/postid"
   },
@@ -98,7 +94,7 @@ if (user){menuItems = [
   },
   {
     menuTitle: "Sign-Up",
-    pageURL: "/signup"
+    pageURL: "/register"
   },
   
 ];

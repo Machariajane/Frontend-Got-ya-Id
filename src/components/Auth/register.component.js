@@ -33,7 +33,7 @@ import Alert from '@material-ui/lab/Alert';
     },
     button: {
       margin: theme.spacing(3, 0, 2),
-      background: '#7E4E78',
+      background: '#009880',
     },
   }));
 

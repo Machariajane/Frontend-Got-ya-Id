@@ -12,10 +12,10 @@ import { createTheme } from '@material-ui/core/styles'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#7E4E60',
+      main: '#006555',
     },
     secondary: {
-     main: '#7E4E78',
+     main: '#009880',
    
     },
     // type: 'dark', :This is will make your component dark theme

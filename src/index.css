@@ -5,7 +5,7 @@
 } */
 
 body {
-    background: #1C8EF9 !important;
+    background: #009880!important;
     min-height: 100vh;
     display: flex;
     font-weight: 400;
@@ -43,7 +43,7 @@ navbar-light{
     transition: all .3s;
 }
 .auth-wrapper .form-control:focus{
-    border-color: #167bff;
+    border-color: #009880;
     box-shadow: none;
 }
 
@@ -63,11 +63,11 @@ navbar-light{
     text-align: right;
     font-size: 13px;
     padding-top: 10px;
-    color: #7f7d7d;
+    color: #009880;
     margin:0;
 }
 
 .forgot-password a {
-    color: #167bff;
+    color: #009880;
 }
 
