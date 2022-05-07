@@ -7,6 +7,7 @@ import useStyles from "../styles";
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 export const Allids = () =>{
   const classes=useStyles()
@@ -63,9 +64,9 @@ export const Allids = () =>{
     
     <Container className={classes.cardGrid} maxWidth='md'>
 
-    <div style={{ margin: '0 auto', marginTop: '10px' }}>
-        <input type="text"  placeholder='Search...' onChange={(e) => searchItems(e.target.value)}/>
-        </div>
+    <div>
+        <TextField label={'Search...'} id="margin-normal" margin="normal" color="primary" onChange={(e) => searchItems(e.target.value)} />
+        </div>   
         <br></br>
       <Grid container spacing={4}>
       {searchInput.length > 1 ? (
