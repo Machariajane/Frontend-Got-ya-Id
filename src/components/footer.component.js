@@ -20,8 +20,15 @@ export const  Footer = () => {
             {'Copyright © '} {new Date().getFullYear()}
         </Typography>
         <Typography variant='subtitle2' align='center' color='textSecondary'> 
-            Mugo Waithira
+        Waithira: 
+        <Link href="https://github.com/Machariajane/Frontend-Got-ya-Id"> Frontend</Link>
         </Typography>
+        <Typography variant='subtitle2' align='center' color='textSecondary'> 
+        Mugo: 
+        <Link href="https://github.com/mugoh/got-ya-id"> Backend</Link>
+        </Typography>
+        
+        
     </Container>
 </footer>
 );
