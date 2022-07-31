@@ -42,8 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export const Login = () =>{
-    const [nameEmail,setNameEmail] = useState ()
-    const [password,setPassword] = useState ()
+    const [nameEmail,setNameEmail] = useState()
+    const [password,setPassword] = useState()
     const dispatch = useDispatch()
     const history = useHistory()
     const error  = useSelector(state => state.user.error)
@@ -52,13 +52,16 @@ export const Login = () =>{
       e.preventDefault()
       let signInData = {password}
       
-      if ('@' in nameEmail) {
+     
+      if (nameEmail.includes('@')){
         signInData = {...signInData, email: nameEmail}
       } else {
-        signInData = {...signInData, nameEmail}
+       
+        signInData = {...signInData, username: nameEmail}
       }
+      
           dispatch(loginUser(signInData,history))
-        },[dispatch,password,username,history]
+        },[dispatch,password,nameEmail,history]
       )
  
 
@@ -85,7 +88,7 @@ export const Login = () =>{
                 label="User Name"
                 name="username"
                 autoComplete="username"
-                value={name_email}
+                value={nameEmail}
                 onInput={e => setNameEmail (e.target.value)}
                 autoFocus
               />
