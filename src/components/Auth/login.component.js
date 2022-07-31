@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
+import Box from '@mui/material/Box';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,15 +42,22 @@ const useStyles = makeStyles((theme) => ({
 
 
 export const Login = () =>{
-    const [username,setUsername] = useState ()
+    const [nameEmail,setNameEmail] = useState ()
     const [password,setPassword] = useState ()
     const dispatch = useDispatch()
     const history = useHistory()
     const error  = useSelector(state => state.user.error)
     const classes = useStyles();
-    const handleSubmit = React.useCallback ( (e) =>
-        {e.preventDefault() 
-          dispatch(loginUser({username,password},history))
+    const handleSubmit = React.useCallback ( (e) =>{
+      e.preventDefault()
+      let signInData = {password}
+      
+      if ('@' in nameEmail) {
+        signInData = {...signInData, email: nameEmail}
+      } else {
+        signInData = {...signInData, nameEmail}
+      }
+          dispatch(loginUser(signInData,history))
         },[dispatch,password,username,history]
       )
  
@@ -66,18 +74,19 @@ export const Login = () =>{
               Sign in
             </Typography>
             { error && <Alert severity="error">{error}</Alert> }
-            <form className={classes.form} onSubmit={handleSubmit}>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            {/* <form className={classes.form} onSubmit={handleSubmit}> */}
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="username"
+                id="username" 
                 label="User Name"
                 name="username"
                 autoComplete="username"
-                value={username}
-                onInput={e => setUsername (e.target.value)}
+                value={name_email}
+                onInput={e => setNameEmail (e.target.value)}
                 autoFocus
               />
               <TextField
@@ -118,7 +127,7 @@ export const Login = () =>{
                   </Link>
                 </Grid>
               </Grid>
-            </form>
+            </Box>
           </div>
           
         </Container>
