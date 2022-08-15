@@ -6,10 +6,13 @@ import { Typography ,Card,CardMedia,Button,CssBaseline,Grid,Container, CardConte
 import useStyles from "../styles";
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
+import { Redirect } from "react-router-dom";
 
 export const Allids = () =>{
+  const user  = useSelector(state => state.user.user)
   const classes=useStyles()
   
   const [data,setData] = useState ([]);
@@ -52,7 +55,9 @@ export const Allids = () =>{
   }, []);
  
   return(
-    <div>
+    <div>{ 
+      user  ? 
+     ( <div>
 
       {isError && <div>Something went wrong ...  </div>}
 
@@ -116,6 +121,19 @@ export const Allids = () =>{
     </Container>
     </main>
     )}
+    </div> )
+      : 
+     ( 
+
+      <Redirect to="/login" />
+     )
+    }
+
+
     </div>
+    
+
+    
+    
   )
 }

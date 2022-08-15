@@ -37,7 +37,7 @@ export const Routes = () => (
 
               </Switch>
            </div>
-           <Footer />
+           
       </div>
     
     </BrowserRouter>

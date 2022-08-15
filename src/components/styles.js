@@ -26,11 +26,13 @@ card:{
   }
 
 },
+
 cardMedia:{
     paddingTop:'56.25%' //16.9
     
 },
 cardContent:{
+  
   flexGrow:1,
 },
 footer:{

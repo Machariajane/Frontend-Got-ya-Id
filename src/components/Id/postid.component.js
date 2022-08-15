@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
 import { postId } from '../../redux/Ids';
+import { Redirect} from "react-router-dom";
 
 
   const useStyles = makeStyles((theme) => ({
@@ -38,6 +39,7 @@ import { postId } from '../../redux/Ids';
 
 
 export const Postid = () =>{
+    const user  = useSelector(state => state.user.user)
     const [name,setName] = useState ()
     const [course,setCourse] = useState ()
     const [registration_no,setRegistration] = useState ()
@@ -76,129 +78,138 @@ export const Postid = () =>{
 
   
     return (
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <PostAddOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Post Id
-            </Typography>
-            { error && <Alert severity="error">{error}</Alert> }
-            <form className={classes.form} onSubmit={handleSubmit} >
-              <Grid container spacing={2}>
-                <Grid item xs={12} >
-                  <TextField
-                    name="name"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Name"
-                    value= {name}
-                    onInput={e => setName ( e.target.value)}
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} >
-                  <TextField
-                    name="course"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Course"
-                    value= {course}
-                    onInput={e => setCourse ( e.target.value)}
-            
-                  />
-                </Grid>
-                <Grid item xs={12} >
-                  <TextField
-                    name="registration"
-                    variant="outlined"
-                    //required
-                    fullWidth
-                    label="Registartion"
-                    value= {registration_no}
-                    onInput={e => setRegistration ( e.target.value)}
-                   
-                  />
-                </Grid>
-                <Grid item xs={12} >
-                  <TextField
-                    name="institition"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Institution"
-                    value= {institution}
-                    onInput={e => setInstitution ( e.target.value)}
-                   
-                  />
-                </Grid>
-                <Grid item xs={12} >
-                  <TextField
-                    name="campus"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Campus"
-                    value= {campus}
-                    onInput={e => setCampus ( e.target.value)}
-                 
-                  />
-                </Grid>
-                <Grid item xs={12} >
-                  <TextField
-                    name="location"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Location"
-                    value= {location_name}
-                    onInput={e => setLocationname ( e.target.value)}
-            
-                  />
-                </Grid>
-                <Grid item xs={12} >
-                  <TextField
-                    name="valid_from"
-                    variant="outlined"
-                    //required
-                    fullWidth
-                    label="Valid_from"
-                    value= {valid_from}
-                    onInput={e => setValidfrom(e.target.value)}
-            
-                  />
-                </Grid>
-                <Grid item xs={12} >
-                  <TextField
-                    name="valid_till"
-                    variant="outlined"
-                    //required
-                    fullWidth
-                    label="Valid_till"
-                    value= {valid_till}
-                    onInput={e => setValidtill(e.target.value)}
-                 
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.button}
-              >
-                Post Id
-              </Button>
-              
-            </form>
-          </div>
+      <div>{ 
+        user  ? 
+       (<Container component="main" maxWidth="xs">
+       <CssBaseline />
+       <div className={classes.paper}>
+         <Avatar className={classes.avatar}>
+           <PostAddOutlinedIcon />
+         </Avatar>
+         <Typography component="h1" variant="h5">
+           Post Id
+         </Typography>
+         { error && <Alert severity="error">{error}</Alert> }
+         <form className={classes.form} onSubmit={handleSubmit} >
+           <Grid container spacing={2}>
+             <Grid item xs={12} >
+               <TextField
+                 name="name"
+                 variant="outlined"
+                 required
+                 fullWidth
+                 label="Name"
+                 value= {name}
+                 onInput={e => setName ( e.target.value)}
+                 autoFocus
+               />
+             </Grid>
+             <Grid item xs={12} >
+               <TextField
+                 name="course"
+                 variant="outlined"
+                 required
+                 fullWidth
+                 label="Course"
+                 value= {course}
+                 onInput={e => setCourse ( e.target.value)}
          
-        </Container>
+               />
+             </Grid>
+             <Grid item xs={12} >
+               <TextField
+                 name="registration"
+                 variant="outlined"
+                 //required
+                 fullWidth
+                 label="Registartion"
+                 value= {registration_no}
+                 onInput={e => setRegistration ( e.target.value)}
+                
+               />
+             </Grid>
+             <Grid item xs={12} >
+               <TextField
+                 name="institition"
+                 variant="outlined"
+                 required
+                 fullWidth
+                 label="Institution"
+                 value= {institution}
+                 onInput={e => setInstitution ( e.target.value)}
+                
+               />
+             </Grid>
+             <Grid item xs={12} >
+               <TextField
+                 name="campus"
+                 variant="outlined"
+                 required
+                 fullWidth
+                 label="Campus"
+                 value= {campus}
+                 onInput={e => setCampus ( e.target.value)}
+              
+               />
+             </Grid>
+             <Grid item xs={12} >
+               <TextField
+                 name="location"
+                 variant="outlined"
+                 required
+                 fullWidth
+                 label="Location"
+                 value= {location_name}
+                 onInput={e => setLocationname ( e.target.value)}
+         
+               />
+             </Grid>
+             <Grid item xs={12} >
+               <TextField
+                 name="valid_from"
+                 variant="outlined"
+                 //required
+                 fullWidth
+                 label="Valid_from"
+                 value= {valid_from}
+                 onInput={e => setValidfrom(e.target.value)}
+         
+               />
+             </Grid>
+             <Grid item xs={12} >
+               <TextField
+                 name="valid_till"
+                 variant="outlined"
+                 //required
+                 fullWidth
+                 label="Valid_till"
+                 value= {valid_till}
+                 onInput={e => setValidtill(e.target.value)}
+              
+               />
+             </Grid>
+           </Grid>
+           <Button
+             type="submit"
+             fullWidth
+             variant="contained"
+             color="primary"
+             className={classes.button}
+           >
+             Post Id
+           </Button>
+           
+         </form>
+       </div>
+      
+     </Container>):
+       (
+        <Redirect to="/login" />
+       )
+      }
+      </div>
+
+        
       );    
 
     
