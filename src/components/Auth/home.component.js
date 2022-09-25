@@ -3,7 +3,6 @@ import React,{ useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import MoodIcon from '@mui/icons-material/Mood';
-
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -96,58 +95,38 @@ sx={{
   },
 }}
 >
-        <Grid container  
+  <Grid container  direction="column"
       spacing={2} justify="center"
       columnSpacing={{ xs: 1, sm: 2, md: 3 , lg: 4, xl:5}} 
       alignItems="center" >
+      
         <Typography variant="h5" align="center" color="text.secondary" component="p">
-          Welcome! , what would you like to do today ? 
+             What would you like to do today ? 
         </Typography>
-     
+     &nbsp;&nbsp;
         
-          <Grid  item  xs={12} sm={6} md={4}>
+        <Grid  item  xs={12} sm={6} md={4}>
           <Card className={classes.card}>
-       
-            
-            <CardContent className={classes.cardContent} >
-              <Typography gutterBottom variant='h5' align="center">  <SearchIcon color='secondary'/>Find my Id</Typography>
-              
-            </CardContent>
-            <CardActions disableSpacing className={classes.parentFlexRight}>
-            
-            
-          
-     
-            <Button size="small" href="/allids" >Go to Page</Button>
-            
-            </CardActions>
-        
+            <CardActionArea href="/allids">
+              <CardContent className={classes.cardContent} >
+                <Typography gutterBottom variant='h5' align="center">  <SearchIcon color='secondary'/>Find my Id</Typography>
+              </CardContent>
+            </CardActionArea>
           </Card>
         </Grid>
-      
+    
         <Grid item  xs={12} sm={6} md={4}>
-     <Card className={classes.card}>
-  
-       
-       <CardContent className={classes.cardContent}>
-         <Typography gutterBottom variant='h5' align="center">  <CreateIcon color='secondary'/>Post an Id</Typography>
-         
-       </CardContent>
-       <CardActions disableSpacing className={classes.parentFlexRight}>
-            
-          
-     
-            <Button size="small" href="/postid" >Go to Page</Button>
-            
-            </CardActions>
-        
-   
-     </Card>
-   </Grid>
+          <Card className={classes.card}>
+            <CardActionArea href="/postid">
+              <CardContent className={classes.cardContent}>
+                <Typography gutterBottom variant='h5' align="center">  <CreateIcon color='secondary'/>Post an Id</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
 
-        
-      </Grid>
-      </Box>
+     </Grid>
+  </Box>
            
           
           </div>

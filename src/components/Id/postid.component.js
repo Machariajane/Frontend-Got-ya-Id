@@ -1,5 +1,5 @@
 // allows users to post ids 
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {useHistory} from 'react-router'
 import Avatar from '@material-ui/core/Avatar';
@@ -14,6 +14,12 @@ import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
 import { postId } from '../../redux/Ids';
 import { Redirect} from "react-router-dom";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import axios from 'axios';
+
 
 
   const useStyles = makeStyles((theme) => ({
@@ -52,6 +58,30 @@ export const Postid = () =>{
     const history = useHistory()
     const error  = useSelector(state => state.id.error)
     const classes = useStyles();
+    const [data,setData] = useState ([]);
+    const [isLoading,setIsLoading] = useState (false);
+    const [isError,setIsError] = useState(false);
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+        setIsError(false);
+        setIsLoading(true);
+  
+        try{
+        const result = await axios('institutions',);
+   
+        
+        setData(result.data.data);
+        } catch(error) {
+          setIsError(true);
+        }
+        setIsLoading(false);
+      };
+      
+  
+      fetchData();
+    }, []);
     
     const handleSubmit = React.useCallback ( (e) => {
       let formatedValidFrom;
@@ -129,16 +159,20 @@ export const Postid = () =>{
                />
              </Grid>
              <Grid item xs={12} >
-               <TextField
-                 name="institition"
-                 variant="outlined"
-                 required
-                 fullWidth
-                 label="Institution"
-                 value= {institution}
-                 onInput={e => setInstitution ( e.target.value)}
-                
-               />
+             <FormControl fullWidth required variant="outlined" >
+                <InputLabel id="demo-simple-select-label">Institution</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={institution}
+                  label="Institution"
+                  onChange={e => setInstitution ( e.target.value)}
+                >
+                  {data.map((item) => (
+                  <MenuItem value={item.id}>{item.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
              </Grid>
              <Grid item xs={12} >
                <TextField
@@ -176,6 +210,8 @@ export const Postid = () =>{
          
                />
              </Grid>
+             
+             
              <Grid item xs={12} >
                <TextField
                  name="valid_till"

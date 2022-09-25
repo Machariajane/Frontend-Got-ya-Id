@@ -1,5 +1,5 @@
 // allows users to post ids 
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {useHistory} from 'react-router'
 import Avatar from '@material-ui/core/Avatar';
@@ -13,7 +13,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
 import { postId } from '../../redux/Ids';
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import axios from 'axios';
 
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,6 +42,7 @@ import { postId } from '../../redux/Ids';
 
 
 export const Createclaim = () =>{
+    const user  = useSelector(state => state.user.user)
     const [name,setName] = useState ()
     const [course,setCourse] = useState ()
     const [registration_no,setRegistration] = useState ()
@@ -45,15 +50,56 @@ export const Createclaim = () =>{
     const [valid_till,setValidtill] = useState ()
     const [institution,setInstitution] = useState ()
     const [campus,setCampus] = useState ()
+    const [location_name,setLocationname] = useState ()
     const dispatch = useDispatch()
     const history = useHistory()
     const error  = useSelector(state => state.id.error)
     const classes = useStyles();
-    
-    const handleSubmit = React.useCallback ( (e) =>
-        {e.preventDefault() 
-            dispatch(postId({name,course,registration_no,valid_from,valid_till,institution,campus},history))
-        },[dispatch,name,course,registration_no,valid_from,valid_till,institution,campus,history]
+    const [data,setData] = useState ([]);
+    const [isLoading,setIsLoading] = useState (false);
+    const [isError,setIsError] = useState(false);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        setIsError(false);
+        setIsLoading(true);
+  
+        try{
+        const result = await axios('institutions',);
+   
+        
+        setData(result.data.data);
+        } catch(error) {
+          setIsError(true);
+        }
+        setIsLoading(false);
+      };
+      
+  
+      fetchData();
+    }, []);
+
+    const handleSubmit = React.useCallback ( (e) => {
+      let formatedValidFrom;
+      let formatedValidTill;
+
+        if (valid_from && !isNaN(valid_from)) {
+          //
+          formatedValidFrom = `${valid_from}-01-01`
+        }
+        if (valid_till && !isNaN(valid_till)) {
+          //isNaN
+          formatedValidTill = `${valid_till}-01-01`
+        }
+
+        e.preventDefault() 
+            dispatch(postId({name,course,registration_no,
+              'valid_from':formatedValidFrom,
+              'valid_till': formatedValidTill,
+              institution,
+              campus,
+              location_name},history))
+        },[dispatch,name,course,registration_no,valid_from,valid_till,institution,campus,location_name,history]
     )
     return (
         <Container component="main" maxWidth="xs">
@@ -105,17 +151,21 @@ export const Createclaim = () =>{
                   />
                 </Grid>
                 <Grid item xs={12} >
-                  <TextField
-                    name="institition"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Institution"
-                    value= {institution}
-                    onInput={e => setInstitution ( e.target.value)}
-                  
-                  />
-                </Grid>
+             <FormControl fullWidth required variant="outlined" >
+                <InputLabel id="demo-simple-select-label">Institution</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={institution}
+                  label="Institution"
+                  onChange={e => setInstitution ( e.target.value)}
+                >
+                  {data.map((item) => (
+                  <MenuItem value={item.id}>{item.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+             </Grid>
                 <Grid item xs={12} >
                   <TextField
                     name="campus"
@@ -128,6 +178,18 @@ export const Createclaim = () =>{
                  
                   />
                 </Grid>
+                <Grid item xs={12} >
+               <TextField
+                 name="location"
+                 variant="outlined"
+                 required
+                 fullWidth
+                 label="Location"
+                 value= {location_name}
+                 onInput={e => setLocationname ( e.target.value)}
+         
+               />
+             </Grid>
                
                 <Grid item xs={12} >
                   <TextField
