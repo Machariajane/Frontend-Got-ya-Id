@@ -38,13 +38,15 @@ export const Home = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+      &nbsp;&nbsp;
         <Avatar className={classes.avatar}>
           <WebhookIcon />
         </Avatar>
+        &nbsp;
         <Typography component="h1" variant="h5">
         What would you like to do today ? 
         </Typography>
-        
+        &nbsp;&nbsp;
         <Box component="form"  sx={{ mt: 1 }}>
        
       <LoadingButton
