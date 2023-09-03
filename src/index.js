@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Provider } from 'react-redux'
 import store from './redux/Store'
 
-axios.defaults.baseURL= 'https://got-ya-id.herokuapp.com/api/'
+axios.defaults.baseURL= 'https://proud-walleye-ideally.ngrok-free.app/'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('auth_token')
 
 
