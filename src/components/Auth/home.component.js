@@ -9,6 +9,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@mui/material/Box";
 import LoadingButton from "@mui/lab/LoadingButton";
 import WebhookIcon from '@mui/icons-material/Webhook';
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +35,14 @@ const useStyles = makeStyles((theme) => ({
 export const Home = () => {
   const classes = useStyles();
   const isLoading = useSelector((state) => state.user.loading);
+  const history = useHistory();
+
+  const handleClick= (e, path) => {
+    localStorage.setItem("home_url" , `/${path}`)
+    history.push(`/${path}`)
+    }
+   
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -50,7 +59,7 @@ export const Home = () => {
         <Box component="form"  sx={{ mt: 1 }}>
        
       <LoadingButton
-            href="/allids"
+            onClick = {(e) => handleClick(e,"allids")}
             fullWidth
             variant="contained"
             color="inherit"
@@ -61,7 +70,7 @@ export const Home = () => {
           </LoadingButton>
          &nbsp;&nbsp;
           <LoadingButton
-            href="/postid"
+            onClick = {(e) => handleClick(e,"postid")}
             fullWidth
             variant="contained"
             color="inherit"

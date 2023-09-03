@@ -21,7 +21,9 @@ export const loginUser = (data,history) => {
         const user = response.data.data
         persistState(response) //call persist state function and pass in the reponse
         dispatch(loginUserSuccess(user))
-        history.push("/allids") //push history :go to allids  page in event of a successful login
+        const  home_url = localStorage.getItem("home_url")
+        home_url  === '/postid' ? ( history.push("/postid") ) : (history.push("/allids"))
+         //push history :go to allids  page in event of a successful login
         })
       .catch(error => {
         dispatch(loginUserFailure(error.response.data.errors))

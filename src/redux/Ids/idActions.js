@@ -58,7 +58,7 @@ export const postId = (data,history) => {
           const id = response.data.data
           
           dispatch(createClaimSuccess(id))
-          history.push("/myposts")
+          history.push("/allids")
           })
         .catch(error => {
             console.log("error",error)

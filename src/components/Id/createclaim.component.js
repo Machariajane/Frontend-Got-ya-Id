@@ -12,11 +12,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
-import { postId } from '../../redux/Ids';
+import { createClaim } from '../../redux/Ids';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Redirect} from "react-router-dom";
 import axios from 'axios';
 
   const useStyles = makeStyles((theme) => ({
@@ -55,7 +56,7 @@ export const Createclaim = () =>{
     const history = useHistory()
     const error  = useSelector(state => state.id.error)
     const classes = useStyles();
-    const [data,setData] = useState ([]);
+    const [data,setData] = useState ();
     const [isLoading,setIsLoading] = useState (false);
     const [isError,setIsError] = useState(false);
 
@@ -93,7 +94,7 @@ export const Createclaim = () =>{
         }
 
         e.preventDefault() 
-            dispatch(postId({name,course,registration_no,
+            dispatch(createClaim({name,course,registration_no,
               'valid_from':formatedValidFrom,
               'valid_till': formatedValidTill,
               institution,
@@ -102,6 +103,9 @@ export const Createclaim = () =>{
         },[dispatch,name,course,registration_no,valid_from,valid_till,institution,campus,location_name,history]
     )
     return (
+      <div>{ 
+        user  ? 
+       (  (isLoading || !data) ? (<div>Loading ... </div>) : (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
@@ -230,6 +234,15 @@ export const Createclaim = () =>{
           </div>
          
         </Container>
+       )
+        
+
+):
+(
+ <Redirect to="/login" />
+)
+}
+</div>
       );    
 
     

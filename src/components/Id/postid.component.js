@@ -69,7 +69,7 @@ export const Postid = () =>{
         setIsLoading(true);
   
         try{
-        const result = await axios('institutions',);
+        const result = await axios('institutions');
    
         
         setData(result.data.data);
